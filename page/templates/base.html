@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.nav-item').forEach(button => {
+                button.onclick = function () {
+                    showcontent(this.dataset.item);
+                };
+            });
+        });
+
+        async function showcontent(page){
+            window.history.replaceState(null, null, page);
+            const html = await fetch(`route/${page}`).then((data) => data.text());
+            document.getElementById("main-page").innerHTML = html;
+        }
+
+    </script>
+</head>
+
+<body>
+    <div id="root">
+        <nav id="main-nav">
+            <a data-item="home" href="#" class="nav-item">Home</a>
+            <a data-item="about" href="#" class="nav-item">About</a>
+            <a data-item="lorem" href="#" class="nav-item">Lorem</a>
+        </nav>
+        <div id="main-page"></div>
+    </div>
+</body>
+
+</html>
